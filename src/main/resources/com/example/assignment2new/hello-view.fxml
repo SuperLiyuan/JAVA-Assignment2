@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- Import JavaFX classes -->
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
@@ -10,25 +11,39 @@
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.HBox?>
+
+<!-- Define the structure of the user interface using JavaFX components -->
 <VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.assignment2new.HelloController">
+
+    <!-- Set padding around the VBox -->
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
     </padding>
+
+    <!-- Display a text message instructing the user -->
     <Text>Enter your numbers separated by spaces</Text>
+
+    <!-- Input field for the user to enter numbers -->
     <TextField fx:id="input"></TextField>
 
+    <!-- Define a ToggleGroup to group radio buttons together -->
     <fx:define>
         <ToggleGroup fx:id="terms"/>
     </fx:define>
 
+    <!-- Create a horizontal layout to arrange radio buttons side by side -->
     <HBox>
+        <!-- Radio buttons for different calculation options -->
         <RadioButton text="AutoSum" fx:id="autoSum" toggleGroup="$terms" selected="true"/>
         <RadioButton text="Average" fx:id="average" toggleGroup="$terms"/>
         <RadioButton text="Max" fx:id="max" toggleGroup="$terms"/>
         <RadioButton text="Min" fx:id="min" toggleGroup="$terms"/>
-
     </HBox>
+
+    <!-- Button to initiate the calculation -->
     <Button text="Calculate" onAction="#onHelloButtonClick"/>
+
+    <!-- Display the calculated result or error message -->
     <Label fx:id="calculate"/>
 </VBox>

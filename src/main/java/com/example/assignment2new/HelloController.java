@@ -31,90 +31,93 @@ public class HelloController {
 
     @FXML
     private RadioButton min;
+
+    // This method is called when the "Calculate" button is clicked.
     @FXML
     protected void onHelloButtonClick() {
 
+        // Get the text entered in the input TextField.
         String str = input.getText();
-        //parseNums() : 1. arr 2. "" 3. aaaa
+
+        // Parse the input string to extract numeric values.
         List<Double> list = parseNums(str);
-        if(list.size() == 0){
-            //a b c 1 2 3
+
+        // If no numeric values are found, display an error message and return.
+        if (list.size() == 0) {
             calculate.setText("Please enter numeric values.");
             return;
         }
 
         double result = 0;
 
+        // Determine which operation (Auto Sum, Average, Max, Min) is selected and calculate the result accordingly.
         if (autoSum.isSelected()) {
             result = calSum(list);
-        } else if (average.isSelected()){
+        } else if (average.isSelected()) {
             result = calAvg(list);
-        } else if (max.isSelected()){
+        } else if (max.isSelected()) {
             result = calMax(list);
-        }else if (min.isSelected()){
+        } else if (min.isSelected()) {
             result = calMin(list);
         }
 
-
+        // Display the calculated result in the "calculate" Label.
         calculate.setText(String.valueOf(result));
-
     }
 
-
-    private double calSum(List<Double> list){
+    // Calculate the sum of a list of numbers.
+    private double calSum(List<Double> list) {
         double total = 0.0;
-        for(Double e: list){
+        for (Double e : list) {
             total += e;
         }
         return total;
-
     }
-    private double calAvg(List<Double> list){
+
+    // Calculate the average of a list of numbers.
+    private double calAvg(List<Double> list) {
         return calSum(list) / list.size();
-
     }
-    private double calMax(List<Double> list){
 
+    // Calculate the maximum value in a list of numbers.
+    private double calMax(List<Double> list) {
         double max = list.get(0);
-        for(Double e: list){
-            if(e>max){
+        for (Double e : list) {
+            if (e > max) {
                 max = e;
             }
         }
         return max;
-
     }
 
-    private double calMin(List<Double> list){
+    // Calculate the minimum value in a list of numbers.
+    private double calMin(List<Double> list) {
         double min = list.get(0);
-        for(Double e: list){
-            if(e<min){
+        for (Double e : list) {
+            if (e < min) {
                 min = e;
             }
         }
         return min;
-
     }
 
-    private List<Double> parseNums(String str){
-        // 1         2 3 4
+    // Parse a string to extract numeric values and return them in a list.
+    private List<Double> parseNums(String str) {
         String[] strArr = str.split(" ");
         List<Double> strList = new ArrayList<>();
-//        Arrays.stream(strArr).filter()
-        for(String string: strArr){
-            if(!"".equals(string)){
-                for(int i = 0;i<string.length();i++){
-                    //not a number 1 2 3 a b c
-                    if(!(string.charAt(i)>='0' && string.charAt(i)<='9')){
+        for (String string : strArr) {
+            if (!"".equals(string)) {
+                for (int i = 0; i < string.length(); i++) {
+                    // Check if each character is a digit (0-9).
+                    if (!(string.charAt(i) >= '0' && string.charAt(i) <= '9')) {
+                        // If non-numeric character found, return an empty list.
                         return new ArrayList<>();
                     }
                 }
+                // Convert the numeric string to a Double and add it to the list.
                 strList.add(Double.parseDouble(string));
             }
         }
-
         return strList;
-
     }
-
 }
